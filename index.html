@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Markov Text</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Markov Text</h1>
+        <p>Generate random text using Markov chains.</p>
+        <label for="text">Input</label>
+        <textarea name="text" id="input_text" cols="80" rows="10"></textarea>
+        <input type="button" value="Generate" onclick="generate_answer()">
+        <p>Answer</p>
+        <p id="answer_text"></p>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
