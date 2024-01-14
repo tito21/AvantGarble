@@ -35,11 +35,13 @@ function build_chain() {
         let word = words[i];
         for (let j = 0; j <= word.length - order; j++) {
             let gram = word.slice(j, j + order);
-            let next = word[j + order] || "";
+            let next = word[j + order];
             if (!ngrams[gram]) {
                 ngrams[gram] = [];
             }
-            ngrams[gram].push(next);
+            if (next) {
+                ngrams[gram].push(next);
+            }
         }
     }
     Object.keys(ngrams).forEach(key => {
@@ -49,7 +51,9 @@ function build_chain() {
 
 function generate_text(currentGram, rng) {
     let generated_text = ""
-    for (let i = 0; i < Math.floor(30 + rng() * 101); i++) {
+    let num_words = Math.floor(70 + rng() * 500);
+    console.log("Number of words", num_words);
+    for (let i = 0; i < num_words; i++) {
         if (!ngrams[currentGram]) {
             currentGram = Object.keys(ngrams)[Math.floor(rng() * Object.keys(ngrams).length)].slice(0, order);
         }
@@ -66,9 +70,9 @@ function generate_answer() {
     input_text = input_box.value.toLowerCase();
     seed = input_text.hashCode();
     rng = jsf32(0xF1EA5EED, seed, seed, seed);
-    console.log(input_text, seed, rng());
     let answer = generate_text(input_text.slice(input_text.length - order, input_text.length), rng);
     console.log(answer);
+    console.log(answer.length);
     answer_box.innerHTML = answer;
 }
 
