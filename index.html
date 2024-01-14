@@ -3,24 +3,29 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Markov Text</title>
+    <title>Markov Chat</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="container">
-        <h1>Markov Text</h1>
-        <p>Generate random text using Markov chains.</p>
-        <label for="text">Input</label>
-        <textarea name="text" id="input_text" cols="80" rows="10"></textarea>
-        <input type="button" value="Generate" onclick="generate_answer()">
+        <h1>Markov Chat</h1>
+        <p>Chat text using Markov chains.</p>
+        <div id="input_container">
+            <textarea name="text" id="input_text" placeholder="Message..." rows="1"></textarea>
+            <input type="button" id="input_button" value="↪" onclick="generate_answer()">
+        </div>
         <p>Answer</p>
         <p id="answer_text"></p>
 
     </div>
 
-    <script src="script.js"></script>
+    <div class="footer">
+        <p>Created by <a href="https://tito21.github.io/about/">Alberto Di Biase</a></p>
+        <p>Source code on <a href="https://github.com/tito21/markov-chain">GitHub</a></p>
+    </div>
+        <script src="script.js"></script>
 </body>
 
 </html>

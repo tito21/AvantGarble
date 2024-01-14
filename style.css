@@ -5,7 +5,61 @@ body {
     color: white;
 }
 
-.container {
-    width: 30em;
+h1 {
+    text-align: center;
+}
+
+a {
+    color: white;
+}
+
+#input_container {
+    display: flex;
+    position: sticky;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+#input_text {
+    width: 90%;
+    height: 2em;
     margin: 0 auto;
+    padding: 0.5em;
+    background-color: transparent;
+    border-color: rgb(1, 0, 71);
+    border-width: 12px;
+    border-radius: 30px;
+    font-size: 1.5em;
+    color: white;
+}
+
+#input_text:focus {
+    outline: none;
+}
+
+#input_button {
+    width: 10%;
+    height: 2em;
+    margin: 0 10px;
+    background-color: white;
+    border-color: rgb(1, 0, 71);
+    border-width: 5px;
+    border-radius: 30px;
+    font-size: 1.5em;
+}
+
+.container {
+    width: 30em;;
+    margin: 0 auto;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(1, 0, 71);
+    color: white;
+    text-align: center;
+    padding-top: 0.5em;
 }
