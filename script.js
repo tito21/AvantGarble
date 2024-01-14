@@ -7,6 +7,29 @@ let input_box = document.getElementById("input_text");
 let input_text = "";
 let answer_box = document.getElementById("answer_text");
 
+String.prototype.hashCode = function () {
+    var hash = 0,
+        i, chr;
+    if (this.length === 0) return hash;
+    for (i = 0; i < this.length; i++) {
+        chr = this.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+}
+function jsf32(a, b, c, d) {
+    return function () {
+        a |= 0; b |= 0; c |= 0; d |= 0;
+        var t = a - (b << 27 | b >>> 5) | 0;
+        a = b ^ (c << 17 | c >>> 15);
+        b = c + d | 0;
+        c = d + t | 0;
+        d = a + t | 0;
+        return (d >>> 0) / 4294967296;
+    }
+}
+
 function build_chain() {
     for (let i = 0; i < words.length - order; i++) {
         let word = words[i];
@@ -21,17 +44,17 @@ function build_chain() {
     }
     Object.keys(ngrams).forEach(key => {
         ngrams[key].push(" ");
-      });
+    });
 }
 
-function generate_text(currentGram) {
+function generate_text(currentGram, rng) {
     let generated_text = ""
-    for (let i = 0; i < Math.floor(30 + Math.random()*101); i++) {
+    for (let i = 0; i < Math.floor(30 + rng() * 101); i++) {
         if (!ngrams[currentGram]) {
-            currentGram = Object.keys(ngrams)[Math.floor(Math.random() * Object.keys(ngrams).length)].slice(0, order);
+            currentGram = Object.keys(ngrams)[Math.floor(rng() * Object.keys(ngrams).length)].slice(0, order);
         }
         let possibilities = ngrams[currentGram];
-        let next = possibilities[Math.floor(Math.random() * possibilities.length)];
+        let next = possibilities[Math.floor(rng() * possibilities.length)];
         generated_text += next;
         let len = generated_text.length;
         currentGram = generated_text.slice(len - order, len);
@@ -41,8 +64,10 @@ function generate_text(currentGram) {
 
 function generate_answer() {
     input_text = input_box.value.toLowerCase();
-    console.log(input_text);
-    let answer = generate_text(input_text.slice(input_text.length - order, input_text.length));
+    seed = input_text.hashCode();
+    rng = jsf32(0xF1EA5EED, seed, seed, seed);
+    console.log(input_text, seed, rng());
+    let answer = generate_text(input_text.slice(input_text.length - order, input_text.length), rng);
     console.log(answer);
     answer_box.innerHTML = answer;
 }
